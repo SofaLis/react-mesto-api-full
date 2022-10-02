@@ -1,0 +1,13 @@
+.authorization__input {
+    margin: 30px 0 0;
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    border: 0;
+    border-bottom: 2px solid #CCCCCC;
+    padding-bottom: 13px;
+    background-color: #000000;
+    outline: none;
+}

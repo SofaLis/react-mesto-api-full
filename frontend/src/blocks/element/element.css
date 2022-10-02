@@ -1,0 +1,9 @@
+.element {
+    width: 282px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    align-self: center;
+    justify-self: center;
+    position: relative;
+}

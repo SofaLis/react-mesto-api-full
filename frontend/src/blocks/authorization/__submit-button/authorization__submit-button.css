@@ -1,0 +1,17 @@
+.authorization__submit-button {
+    margin: 216px 0 0;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #fff;
+    color: black;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    transition: opacity .3s;
+}
+
+.authorization__submit-button:hover {
+    opacity: .8;
+}

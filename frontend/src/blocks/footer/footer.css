@@ -1,0 +1,12 @@
+.footer {
+    width: calc(100% - (200px*2));
+    margin: 0 auto 60px;
+    color: #545454;
+}
+
+@media screen and (max-width: 980px) {
+    .footer {
+        width: calc(100% - (19px*2));
+        margin: 0 auto 36px;
+    }
+} 

@@ -1,0 +1,17 @@
+.popup__item {
+    width: calc(100% - (35px*2));
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 13px;
+    margin: 0 auto 0;
+    color: black;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 553px) {
+    .popup__item {
+        width: calc(100% - (22px*2));
+    }
+} 
