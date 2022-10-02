@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import imgOk from '../images/Ok.svg'
 import imgErr from '../images/Err.svg'

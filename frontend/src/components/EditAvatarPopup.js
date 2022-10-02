@@ -1,6 +1,5 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import CurrentUserContext from '../contexts/CurrentUserContext.js';
 
 export default function EditAvatarPopup(props) {
   const avatar = React.useRef();

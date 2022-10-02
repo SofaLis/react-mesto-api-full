@@ -116,17 +116,6 @@ function App() {
       })
   }
 
-  function handleUpdateAvatar(avatar) {
-    api.editAvatar(avatar)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.log(`${err}, попробуйте ещё`);
-      })
-  };
-
   function handleAddPlaceSubmit(card) {
     api.addCard(card)
       .then((res) => {
@@ -138,6 +127,7 @@ function App() {
 
   React.useEffect(() => {
     handleTokenCheck()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function handleTokenCheck() {
