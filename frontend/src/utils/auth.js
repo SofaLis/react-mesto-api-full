@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://sofalis.mesto.students.nomoredomains.icu';
 
 function testStatus(res) {
   if (res.ok) {
@@ -10,6 +10,7 @@ function testStatus(res) {
 export function register(data) {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    credentials:'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -24,6 +25,7 @@ export function register(data) {
 export function authorize(data) {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
+    credentials:'include',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -40,6 +42,7 @@ export function getContent() {
   if (token) {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
+      credentials:'include',
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`

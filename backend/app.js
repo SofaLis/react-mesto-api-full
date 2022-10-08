@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config();
 const {
   celebrate, Joi, errors,
 } = require('celebrate');
@@ -28,23 +32,15 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 const allowedCors = [
   'http://sofalis.mesto.students.nomoredomains.icu',
   'http://api.sofalis.mesto.student.nomoredomains.icu',
+  'https://localhost:3000',
 ];
 
-// eslint-disable-next-line prefer-arrow-callback, func-names
-app.use(function (req, res, next) {
-  const { origin } = req.headers;
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, authorization');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS');
-  }
-  if (req.method === 'OPTIONS') {
-    res.send(200);
-  } else {
-    next();
-  }
-});
+app.use(cors({
+  origin: allowedCors,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -72,7 +68,7 @@ app.post('/signin', celebrate({
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);
 
-app.use((req, res, next) => {
+app.use('*', (req, res, next) => {
   next(new NotFound('Простите, страница не найдена'));
 });
 
