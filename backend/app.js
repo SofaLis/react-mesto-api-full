@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -35,12 +34,21 @@ const allowedCors = [
   'https://localhost:3000',
 ];
 
-app.use(cors({
-  origin: allowedCors,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-}));
+// eslint-disable-next-line prefer-arrow-callback, func-names
+app.use(function (req, res, next) {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.send(200);
+  }
+  next();
+});
 
 app.get('/crash-test', () => {
   setTimeout(() => {
