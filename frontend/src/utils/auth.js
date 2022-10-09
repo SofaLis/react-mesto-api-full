@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.sofalis.mesto.student.nomoredomains.icu';
+export const BASE_URL = 'https://sofalis.mesto.students.nomoredomains.icu';
 
 function testStatus(res) {
   if (res.ok) {
@@ -45,7 +45,6 @@ export function getContent() {
       credentials:'include',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
       }
     })
       .then(testStatus)

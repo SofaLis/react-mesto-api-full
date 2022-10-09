@@ -1,6 +1,6 @@
 const allowedCors = [
   'http://sofalis.mesto.students.nomoredomains.icu',
-  'https://sofalis.mesto.students.nomoredomains.icu/',
+  'https://sofalis.mesto.students.nomoredomains.icu',
   'http://api.sofalis.mesto.student.nomoredomains.icu',
   'https://api.sofalis.mesto.student.nomoredomains.icu',
   'https://localhost:3000',
