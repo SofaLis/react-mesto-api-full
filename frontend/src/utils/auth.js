@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://sofalis.mesto.students.nomoredomains.icu';
+export const BASE_URL = 'https://api.sofalis.mesto.student.nomoredomains.icu';
 
 function testStatus(res) {
   if (res.ok) {

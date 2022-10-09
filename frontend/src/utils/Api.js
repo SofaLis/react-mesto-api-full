@@ -132,7 +132,7 @@ class Api {
 
 }
  const api = new Api({
-    baseUrl: 'https://sofalis.mesto.students.nomoredomains.icu',
+    baseUrl: 'https://api.sofalis.mesto.student.nomoredomains.icu',
     headers: {
       'Content-Type': 'application/json',
     }
