@@ -28,22 +28,27 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 const allowedCors = [
   'http://sofalis.mesto.students.nomoredomains.icu',
+  'https://sofalis.mesto.students.nomoredomains.icu',
   'http://api.sofalis.mesto.student.nomoredomains.icu',
+  'https://api.sofalis.mesto.student.nomoredomains.icu',
   'https://localhost:3000',
 ];
 
-// eslint-disable-next-line prefer-arrow-callback, func-names
+// eslint-disable-next-line prefer-arrow-callback, func-names, consistent-return
 app.use(function (req, res, next) {
   const { origin } = req.headers;
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, authorization');
+  }
+
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.send(200);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.send(200);
   }
   next();
 });
