@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
+const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const NotFound = require('./err/NotFound');
 
@@ -17,6 +18,7 @@ const regular = /(https?:\/\/)([www.]?[a-zA-Z0-9-]+\.)([^\s]{2,})/;
 const { PORT = 3000 } = process.env;
 
 const app = express();
+app.use(cors);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,33 +27,6 @@ app.use(cookieParser());
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
-
-const allowedCors = [
-  'http://sofalis.mesto.students.nomoredomains.icu',
-  'https://sofalis.mesto.students.nomoredomains.icu',
-  'http://api.sofalis.mesto.student.nomoredomains.icu',
-  'https://api.sofalis.mesto.student.nomoredomains.icu',
-  'https://localhost:3000',
-];
-
-// eslint-disable-next-line prefer-arrow-callback, func-names, consistent-return
-module.exports = (req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-
-    if (method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-      res.header('Access-Control-Allow-Headers', requestHeaders);
-      res.end();
-    }
-  }
-  next();
-};
 
 app.get('/crash-test', () => {
   setTimeout(() => {
