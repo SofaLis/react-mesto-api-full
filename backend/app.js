@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const {
   celebrate, Joi, errors,
@@ -19,7 +20,16 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors);
+app.use(cors({
+  origin: [
+    'https://sofalis.mesto.students.nomoredomains.icu',
+    'http://sofalis.mesto.students.nomoredomains.icu',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
