@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
-const cors = require('./middlewares/cors');
+//const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const NotFound = require('./err/NotFound');
 
