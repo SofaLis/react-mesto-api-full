@@ -150,7 +150,7 @@ function App() {
           setIsAuthorization(true)
           setIsAuthorizationText('Вы успешно зарегистрировались!')
           setIsInfoTooltipPopupOpen(true)
-          setEmail(res.data.email);
+          setEmail(data.data.email);
           localStorage.setItem("jwt", res.token);
           history.push('/');
         }
@@ -166,7 +166,7 @@ function App() {
     auth.register(data)
       .then((res) => {
         setIsisLoggedIn(true);
-        setEmail(res.data.email);
+        setEmail(data.data.email);
         setIsAuthorization(true)
         setIsAuthorizationText('Вы успешно зарегистрировались!')
         setIsInfoTooltipPopupOpen(true)
