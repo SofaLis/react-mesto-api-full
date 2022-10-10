@@ -10,6 +10,7 @@ function testStatus(res) {
 export function register(data) {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    mode: 'cors',
     credentials:'include',
     headers: {
       'Content-Type': 'application/json',
@@ -25,6 +26,7 @@ export function register(data) {
 export function authorize(data) {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
+    mode: 'cors',
     credentials:'include',
     headers: {
       'Content-Type': 'application/json'
@@ -38,17 +40,13 @@ export function authorize(data) {
 };
 
 export function getContent() {
-  const token = localStorage.getItem('jwt');
-  if (token) {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
+      mode: 'cors',
       credentials:'include',
       headers: {
         "Content-Type": "application/json",
       }
     })
       .then(testStatus)
-  } else {
-    return Promise.reject(`Ошибка: пользователь не авторизован `)
-  }
-}
+};

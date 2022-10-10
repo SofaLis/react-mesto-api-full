@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const {
   celebrate, Joi, errors,
@@ -9,7 +11,7 @@ const {
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
-const { login, createUser } = require('./controllers/users');
+const { login, createUser, logout} = require('./controllers/users');
 // const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const NotFound = require('./err/NotFound');
@@ -61,6 +63,8 @@ app.post('/signin', celebrate({
     password: Joi.string().required(),
   }),
 }), login);
+
+app.post('/logout', logout);
 
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);

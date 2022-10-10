@@ -12,7 +12,7 @@ const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'secret-key';
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
+    .then((users) => res.send(users)
     .catch((err) => {
       next(err);
     });
@@ -24,7 +24,7 @@ module.exports.getUserId = (req, res, next) => {
       if (!user) {
         throw new NotFound({ message: 'Пользователь не найден' });
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -41,7 +41,7 @@ module.exports.getUsersMe = (req, res, next) => {
       if (!user) {
         throw new NotFound('Пользователь не найден');
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch(next);
 };
@@ -56,13 +56,7 @@ module.exports.createUser = (req, res, next) => {
         name, about, avatar, email, password: hash,
       },
     ))
-    .then((user) => res.status(201).send({
-      _id: user._id,
-      email: user.email,
-      name: user.name,
-      about: user.about,
-      avatar: user.avatar,
-    }))
+    .then((user) => res.status(201).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Некорректные данные'));
@@ -82,7 +76,7 @@ module.exports.updateUser = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
       if (user) {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       } else {
         throw new NotFound('Пользователь не найден');
       }
@@ -102,7 +96,7 @@ module.exports.updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (user) {
-        res.send({ data: user });
+        res.send(user);
       } else {
         throw new NotFound('Пользователь не найден');
       }
@@ -130,4 +124,14 @@ module.exports.login = (req, res, next) => {
     .catch(() => {
       next(new Unauthorized('Неверно введен пароль или почта'));
     });
+};
+
+module.exports.logout = (req, res) => {
+  res
+    .status(200)
+    .cookie('jwt', 'token', {
+      maxAge: -1,
+      httpOnly: true,
+    })
+    .send({ message: 'Вы вышли с сайта' });
 };

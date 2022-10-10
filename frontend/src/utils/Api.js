@@ -8,6 +8,7 @@ class Api {
     getUserInfo() { 
         return fetch(`${this._baseUrl}/users/me`, { 
             credentials:'include',
+            mode: 'cors',
             headers: this._headers,
         })
             .then((res) => {
@@ -19,6 +20,7 @@ class Api {
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             credentials:'include',
+            mode: 'cors',
             headers: this._headers
         })
 
@@ -32,7 +34,8 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`,
         {
             method: 'PATCH',
-            credentials:'include',  
+            credentials:'include',
+            mode: 'cors',
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
@@ -49,6 +52,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             credentials:'include',
+            mode: 'cors',
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
@@ -67,6 +71,7 @@ class Api {
         {
             method: 'PATCH',
             credentials:'include',
+            mode: 'cors',
             headers: this._headers,
             body: JSON.stringify({
                 avatar: data.avatar
@@ -82,6 +87,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, { 
           method: 'DELETE',
           credentials:'include',
+          mode: 'cors',
           headers: this._headers,
         })
         .then((res) => {
@@ -101,7 +107,8 @@ class Api {
     _like(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, { 
           method: 'PUT',
-          credentials:'include', 
+          credentials:'include',
+          mode: 'cors',
           headers: this._headers,
         })
         .then((res) => {
@@ -114,6 +121,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, { 
             method: 'DELETE',
             credentials:'include',
+            mode: 'cors',
             headers: this._headers,
           })
           .then((res) => {
