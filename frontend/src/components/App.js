@@ -32,6 +32,7 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
+    console.log(cards)
     if (isLoggedIn) {
       Promise.all([
         api.getUserInfo(),
@@ -158,6 +159,7 @@ function App() {
       .catch(() => {
         setIsAuthorizationText('Что-то пошло не так! Попробуйте ещё раз.');
         setIsAuthorization(false)
+        console.log(data.data.email)
         setIsInfoTooltipPopupOpen(true);
       })
   }

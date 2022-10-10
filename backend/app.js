@@ -24,6 +24,7 @@ app.use(cors({
   origin: [
     'https://sofalis.mesto.students.nomoredomains.icu',
     'http://sofalis.mesto.students.nomoredomains.icu',
+    'http://localhost:3000',
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
