@@ -12,7 +12,7 @@ const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'secret-key';
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send(users)
+    .then((users) => res.send(users))
     .catch((err) => {
       next(err);
     });
@@ -133,5 +133,5 @@ module.exports.logout = (req, res) => {
       maxAge: -1,
       httpOnly: true,
     })
-    .send({ message: 'Вы вышли с сайта' });
+    .send({ message: 'Пользователь разлогинен' });
 };

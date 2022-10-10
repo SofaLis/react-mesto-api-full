@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
-dotenv.config();
 
+dotenv.config();
 const {
   celebrate, Joi, errors,
 } = require('celebrate');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
-const { login, createUser, logout} = require('./controllers/users');
+const { login, createUser, logout } = require('./controllers/users');
 // const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const NotFound = require('./err/NotFound');
