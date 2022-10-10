@@ -4,8 +4,8 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 export default function Card(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    const isOwn = props.card.owner._id === currentUser._id;
-    const isLiked = props.card.likes.some(i => i._id === currentUser._id);
+    const isOwn = props.card.owner === currentUser._id;
+    const isLiked = props.card.likes.some(i => i === currentUser._id);
 
     const cardDeleteButtonClassName = (
         `element__delete ${isOwn ? 'element__delete_visible' : 'element__delete_opracity'}`

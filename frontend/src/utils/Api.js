@@ -7,10 +7,9 @@ class Api {
     //Загрузка информации о пользователе с сервера
     getUserInfo() { 
         return fetch(`${this._baseUrl}/users/me`, { 
+            credentials:'include',
             headers: this._headers,
-            credentials:'include'
         })
-
             .then((res) => {
             return this._testStatus(res)
             }) 

@@ -36,9 +36,9 @@ function App() {
       Promise.all([
         api.getUserInfo(),
         api.getInitialCards()])
-        .then(([user, cards]) => {
-          setCurrentUser(user);
-          setCards(cards);
+        .then((res) => {
+          setCurrentUser(res);
+          setCards(res);
         })
         .catch((err) => {
           console.log(`${err}, попробуйте ещё`);
@@ -128,13 +128,13 @@ function App() {
   React.useEffect(() => {
     handleTokenCheck()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [history])
 
   function handleTokenCheck() {
     auth.getContent()
       .then((res) => {
         setIsisLoggedIn(true);
-        setEmail(res.data.email);
+        setEmail(res.email);
         history.push("/");
       })
       .catch((err) => {
@@ -150,7 +150,7 @@ function App() {
           setIsAuthorization(true)
           setIsAuthorizationText('Вы успешно зарегистрировались!')
           setIsInfoTooltipPopupOpen(true)
-          setEmail(data.email);
+          setEmail(res.data.email);
           localStorage.setItem("jwt", res.token);
           history.push('/');
         }
@@ -166,7 +166,7 @@ function App() {
     auth.register(data)
       .then((res) => {
         setIsisLoggedIn(true);
-        setEmail(data.email);
+        setEmail(res.data.email);
         setIsAuthorization(true)
         setIsAuthorizationText('Вы успешно зарегистрировались!')
         setIsInfoTooltipPopupOpen(true)
