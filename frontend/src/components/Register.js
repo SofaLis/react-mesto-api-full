@@ -16,10 +16,7 @@ export default function Register(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        props.onRegister({
-            email,
-            password
-        });
+        props.onRegister( email, password );
     }
 
     return (

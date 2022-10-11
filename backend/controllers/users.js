@@ -92,7 +92,6 @@ module.exports.updateUser = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (user) {
@@ -126,12 +125,11 @@ module.exports.login = (req, res, next) => {
     });
 };
 
-module.exports.logout = (req, res) => {
-  res
-    .status(200)
-    .cookie('jwt', 'token', {
-      maxAge: -1,
-      httpOnly: true,
-    })
-    .send({ message: 'Пользователь разлогинен' });
+module.exports.logoff = (req, res) => {
+  res.cookie('jwt', 'token', {
+    maxAge: -1,
+    httpOnly: true,
+  });
+  res.status(200)
+    .send({ message: 'вы покинули аккаунт' });
 };

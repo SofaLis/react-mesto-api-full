@@ -8,7 +8,6 @@ class Api {
     getUserInfo() { 
         return fetch(`${this._baseUrl}/users/me`, { 
             credentials:'include',
-            mode: 'cors',
             headers: this._headers,
         })
             .then((res) => {
@@ -20,7 +19,6 @@ class Api {
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             credentials:'include',
-            mode: 'cors',
             headers: this._headers
         })
 
@@ -30,16 +28,15 @@ class Api {
     };
 
     //Редактирование профиля
-    editProfile(data) {
+    editProfile(name, about) {
         return fetch(`${this._baseUrl}/users/me`,
         {
             method: 'PATCH',
             credentials:'include',
-            mode: 'cors',
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                about: data.about
+                name: name,
+                about: about
             })
         })
         .then((res) => {
@@ -48,15 +45,14 @@ class Api {
     };
 
     //Добавление новой карточки
-    addCard (data) {
+    addCard (name, link) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             credentials:'include',
-            mode: 'cors',
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                link: data.link
+                name: name,
+                link: link
             })
         })
 
@@ -66,15 +62,14 @@ class Api {
     };
 
     //Редактирование аватара
-    editAvatar(data) {
+    editAvatar(avatar) {
         return fetch(`${this._baseUrl}/users/me/avatar`, 
         {
             method: 'PATCH',
             credentials:'include',
-            mode: 'cors',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: data.avatar
+                avatar: avatar
             })
         })
         .then((res) => {
@@ -87,7 +82,6 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, { 
           method: 'DELETE',
           credentials:'include',
-          mode: 'cors',
           headers: this._headers,
         })
         .then((res) => {
@@ -108,7 +102,6 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, { 
           method: 'PUT',
           credentials:'include',
-          mode: 'cors',
           headers: this._headers,
         })
         .then((res) => {
@@ -121,7 +114,6 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, { 
             method: 'DELETE',
             credentials:'include',
-            mode: 'cors',
             headers: this._headers,
           })
           .then((res) => {

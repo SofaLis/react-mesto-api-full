@@ -7,33 +7,31 @@ function testStatus(res) {
   return Promise.reject(`${res}`);
 }
 
-export function register(data) {
+export function register(email, password) {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
-    mode: 'cors',
     credentials:'include',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: data.email,
-      password: data.password,
+      email: email,
+      password: password,
     })
   })
     .then(testStatus)
 }
 
-export function authorize(data) {
+export function authorize(email, password) {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
-    mode: 'cors',
     credentials:'include',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      email: data.email,
-      password: data.password,
+      email: email,
+      password: password,
     })
   })
     .then(testStatus)
@@ -42,11 +40,21 @@ export function authorize(data) {
 export function getContent() {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
-      mode: 'cors',
       credentials:'include',
       headers: {
         "Content-Type": "application/json",
       }
     })
       .then(testStatus)
+};
+
+export function logoff() {
+  return fetch(`${BASE_URL}/logoff`, {
+      method: "POST",
+      credentials:'include',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  })
+  .then(testStatus)
 };

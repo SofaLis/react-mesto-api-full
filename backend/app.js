@@ -1,18 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const dotenv = require('dotenv');
+// const cors = require('cors');
 
-dotenv.config();
 const {
   celebrate, Joi, errors,
 } = require('celebrate');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
-const { login, createUser, logout } = require('./controllers/users');
-// const cors = require('./middlewares/cors');
+const { cors } = require('./middlewares/cors');
+
+const { login, createUser, logoff } = require('./controllers/users');
+
 const auth = require('./middlewares/auth');
 const NotFound = require('./err/NotFound');
 
@@ -22,16 +22,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors({
-  origin: [
-    'https://sofalis.mesto.students.nomoredomains.icu',
-    'http://sofalis.mesto.students.nomoredomains.icu',
-    'http://localhost:3000',
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-}));
+app.use(cors);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -64,7 +55,7 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.post('/logout', logout);
+app.post('/logoff', logoff);
 
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);

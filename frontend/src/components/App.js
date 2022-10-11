@@ -32,35 +32,23 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    auth.getContent()
-    .then((res) => {
-      setIsisLoggedIn(true);
-      setEmail(res.email);
-      history.push("/");
-    })
-    .catch((err) => {
-      history.push("/sign-in");
-    });
-  }, [history])
-
-  React.useEffect(() => {
     if (isLoggedIn) {
       Promise.all([
         api.getUserInfo(),
         api.getInitialCards()])
-        .then(([user, cards]) => {
-          setCurrentUser(user);
+        .then(([users, cards]) => {
           setCards(cards);
+          setCurrentUser(users);
         })
         .catch((err) => {
           console.log(`${err}, попробуйте ещё`);
         })
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i === currentUser._id);
-    api.changeLikeCardStatus(card, !isLiked)
+    api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
@@ -107,8 +95,8 @@ function App() {
     setSelectedCard({ name: '', link: '' });
   }
 
-  function handleUpdateUser(user) {
-    api.editProfile(user)
+  function handleUpdateUser(name, about) {
+    api.editProfile(name, about)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
@@ -122,6 +110,7 @@ function App() {
     api.editAvatar(avatar)
       .then((res) => {
         setCurrentUser(res);
+        console.log(res)
         closeAllPopups();
       })
       .catch((err) => {
@@ -129,28 +118,26 @@ function App() {
       })
   }
 
-  function handleAddPlaceSubmit(card) {
-    api.addCard(card)
+  function handleAddPlaceSubmit(name, link) {
+    api.addCard(name, link)
       .then((res) => {
         setCards([res, ...cards]);
         closeAllPopups();
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
-
-  function handleLogIn(data) {
-    auth.authorize(data)
+  function handleLogIn(email, password) {
+    auth.authorize(email, password)
       .then((res) => {
-        if (res.token) {
           setIsisLoggedIn(true);
           setIsAuthorization(true)
           setIsAuthorizationText('Вы успешно зарегистрировались!')
           setIsInfoTooltipPopupOpen(true)
-          setEmail(res.data.email);
-          localStorage.setItem("jwt", res.token);
+          setEmail(email);
           history.push('/');
-        }
       })
       .catch(() => {
         setIsAuthorizationText('Что-то пошло не так! Попробуйте ещё раз.');
@@ -159,28 +146,46 @@ function App() {
       })
   }
 
-  function handleRegister(data) {
-    auth.register(data)
-      .then((res) => {
+  function handleRegister(email, password) {
+    auth.register(email, password)
+      .then(() => {
         setIsisLoggedIn(true);
-        setEmail(data.email);
+        setEmail(email);
         setIsAuthorization(true)
         setIsAuthorizationText('Вы успешно зарегистрировались!')
         setIsInfoTooltipPopupOpen(true)
-        console.log(data.password)
+        handleLogIn(email, password)
         history.push('/');
       })
-      .catch(() => {
+      .catch((res) => {
         setIsAuthorization(false)
         setIsAuthorizationText('Что-то пошло не так! Попробуйте ещё раз.')
         setIsInfoTooltipPopupOpen(true)
       })
   }
 
+
+  React.useEffect(() => {
+    auth.getContent()
+      .then((res) => {
+        setIsisLoggedIn(true);
+        setEmail(res.email);
+        history.push("/");
+      })
+      .catch((err) => {
+        history.push("/sign-in");
+        console.log(err)
+      });
+  }, [history])
+
   function handleSignOut() {
-    localStorage.removeItem("jwt");
-    setIsisLoggedIn(false);
-    history.push('/sign-in');
+    auth.logoff()
+      .then((res) => {
+        setIsisLoggedIn(false);
+        setEmail(null);
+        history.push('/sign-in');
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
