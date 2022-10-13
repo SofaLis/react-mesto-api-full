@@ -1,18 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-
+const bodyParser = require('body-parser');
 const {
   celebrate, Joi, errors,
 } = require('celebrate');
-const bodyParser = require('body-parser');
+
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
-const { cors } = require('./middlewares/cors');
-
 const { login, createUser, logoff } = require('./controllers/users');
 
+const { cors } = require('./middlewares/cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
+
 const NotFound = require('./err/NotFound');
 
 const regular = /(https?:\/\/)([www.]?[a-zA-Z0-9-]+\.)([^\s]{2,})/;
@@ -37,6 +38,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
+app.use(requestLogger);
+
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -59,11 +62,13 @@ app.post('/logoff', logoff);
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);
 
+app.use(errorLogger);
+
+app.use(errors());
+
 app.use('*', (req, res, next) => {
   next(new NotFound('Простите, страница не найдена'));
 });
-
-app.use(errors());
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
