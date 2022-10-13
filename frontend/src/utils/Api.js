@@ -131,7 +131,7 @@ class Api {
 
 }
  const api = new Api({
-    baseUrl: 'https://api.sofalis.mesto.student.nomoredomains.icu',
+    baseUrl: 'http://localhost:3000',
     headers: {
       'Content-Type': 'application/json',
     }

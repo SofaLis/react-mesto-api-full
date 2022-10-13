@@ -45,7 +45,6 @@ function App() {
   }, [history])
 
   React.useEffect(() => {
-    if (isLoggedIn) {
       Promise.all([
         api.getUserInfo(),
         api.getInitialCards()])
@@ -56,7 +55,6 @@ function App() {
         .catch((err) => {
           console.log(`${err}, попробуйте ещё`);
         })
-    }
   }, [isLoggedIn, history]);
 
   function handleCardLike(card) {

@@ -118,7 +118,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         secure: true,
-        sameSite: 'true',
+        sameSite: false,
       });
       res.send({ token });
     })
@@ -130,7 +130,8 @@ module.exports.login = (req, res, next) => {
 module.exports.logoff = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
-    sameSite: true,
+    sameSite: false,
+    secure: true,
   });
   res.status(200)
     .send({ message: 'вы покинули аккаунт' });
