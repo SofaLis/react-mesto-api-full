@@ -8,7 +8,7 @@ const NotFound = require('../err/NotFound');
 const Conflict = require('../err/Conflict');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'secret-key';
+const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'secret';
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -118,7 +118,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         secure: true,
-        sameSite: false,
+        sameSite: 'none',
       });
       res.send({ token });
     })
@@ -128,10 +128,11 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logoff = (req, res) => {
-  res.clearCookie('jwt', {
+  res.cookie('jwt', 'token', {
+    maxAge: 0,
     httpOnly: true,
-    sameSite: false,
     secure: true,
+    sameSite: 'none',
   });
   res.status(200)
     .send({ message: 'вы покинули аккаунт' });

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Unauthorized = require('../err/Unauthorized');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'secret-key';
+const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'secret';
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
