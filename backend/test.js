@@ -6,6 +6,7 @@ const SECRET_KEY_DEV = 'dev-secretKey'; // вставьте сюда секре�
 try {
   // eslint-disable-next-line no-unused-vars
   const payload = jwt.verify(YOUR_JWT, SECRET_KEY_DEV);
+  // eslint-disable-next-line semi
   console.log(payload)
   // eslint-disable-next-line no-console
   console.log('\x1b[31m%s\x1b[0m', `
@@ -26,4 +27,4 @@ try {
       err,
     );
   }
-};
+}
