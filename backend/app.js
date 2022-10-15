@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
-dotenv.config({ path: './.env' });
+// dotenv.config({ path: './.env' });
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const {
