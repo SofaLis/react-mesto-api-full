@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-dotenv.config();
+dotenv.config({ path: './.env' });
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const {
