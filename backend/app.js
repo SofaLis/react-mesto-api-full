@@ -79,11 +79,12 @@ app.use((err, req, res, next) => {
   next();
 });
 
+// eslint-disable-next-line no-console
+console.log(process.env.JWT_SECRET);
+// eslint-disable-next-line no-console
+console.log(process.env.NODE_ENV);
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
-  // eslint-disable-next-line no-console
-  console.log(process.env.JWT_SECRET);
-  // eslint-disable-next-line no-console
-  console.log(process.env.NODE_ENV);
 });
