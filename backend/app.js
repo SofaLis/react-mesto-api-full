@@ -82,4 +82,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
+  console.log(process.env.JWT_SECRET)
 });
