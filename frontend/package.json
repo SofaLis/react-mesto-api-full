@@ -2,6 +2,7 @@
   "name": "mesto-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sofalis.github.io/react-mesto-api-full",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -14,11 +15,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* sofa@51.250.78.72:~/react-mesto-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [

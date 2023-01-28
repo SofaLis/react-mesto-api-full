@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.sofalis.mesto.student.nomoredomains.icu';
+export const BASE_URL = 'http://localhost:3000';
 
 function testStatus(res) {
   if (res.ok) {
